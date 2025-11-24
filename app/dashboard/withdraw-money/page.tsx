@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Wallet, TrendingUp, CheckCircle, ArrowLeft } from 'lucide-react';
 import StatCard from '../../../components/ui/StatCard';
-import StatusBadge from '../../../components/ui/StatusBadge';
+import StatusBadge, { StatusType } from '../../../components/ui/StatusBadge';
 import { Skeleton } from '@/components/ui/skeleton';
 import api from '@/utils/axios';
 
@@ -201,7 +201,8 @@ const WithdrawPage: React.FC = () => {
           }),
           amount: `$${Number(withdrawal.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
           bank: withdrawal.paymentMethod === 'UPI' ? 'UPI Transfer' : 'Bank Transfer',
-          status: withdrawal.status.toLowerCase()
+          // status: withdrawal.status.toLowerCase()
+          status: withdrawal.status.toLowerCase() as StatusType
         }));
 
         console.log('📜 Formatted Withdrawals:', formattedWithdrawals);
@@ -452,7 +453,7 @@ const WithdrawPage: React.FC = () => {
                     <td className="px-3 py-2 text-xs sm:text-sm dark:text-[#F2F2F2]">{withdrawal.bank}</td>
                     <td className="px-3 py-2">
                       <StatusBadge 
-                        status={withdrawal.status} 
+                        status={withdrawal.status as StatusType} 
                         className="text-xs sm:text-sm"
                       />
                     </td>
